@@ -112,7 +112,7 @@ function createWall() {
 function changeColor(x, y) {
     tbl.rows[x].cells[y].style.background = "green";
     tbl.rows[x].cells[y].style.transition = "1s";
-    tbl.rows[x].cells[y].style.transitionDelay = j / (2 * 10) + "s";
+    tbl.rows[x].cells[y].style.transitionDelay = (j / 30) + "s";
 }
 function rchangeColor(x, y, color) {
     tbl.rows[x].cells[y].style.background = color + "";    
