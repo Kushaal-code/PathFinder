@@ -51,7 +51,8 @@ function Start() {
             break;
         case "3":
             ASearch().then((data)=>{
-                setTimeout(aRePath,j*35, data);
+                if(data.length>0)
+                    setTimeout(aRePath,j*35, data);
             });
             
             break;
@@ -477,7 +478,7 @@ function Anode(x, y, pre) {
     this.prev=pre;
     this.cost = (this.prev!=null)?pre.cost+1:0;
     this.hcost = Math.abs(x-end_row )+ Math.abs(y-end_col);
-    this.gcost = this.cost+this.hcost;
+    //this.gcost = this.cost+this.hcost;
     this.isVisited=false;
 }
 
@@ -493,7 +494,7 @@ function APQ(){
         let pos = ar.length - 1;
         while (pos > 0) {
             let parent = Math.floor((pos + 1) / 2) - 1;
-            if (ar[parent].gcost <= ar[pos].gcost)
+            if (ar[parent].hcost <= ar[pos].hcost)
                 break;
             swap(parent, pos);
             pos = parent;
@@ -507,13 +508,13 @@ function APQ(){
         while (pos < Math.floor(ar.length / 2)) {
             let left = 2 * pos + 1;
             let right = left + 1;
-            if (right < ar.length && ar[left].gcost > ar[right].gcost) {
-                if (ar[pos].gcost <= ar[right].gcost)
+            if (right < ar.length && ar[left].hcost > ar[right].hcost) {
+                if (ar[pos].hcost <= ar[right].hcost)
                     break;
                 swap(pos, right);
                 pos = right;
             } else {
-                if (ar[pos].gcost <= ar[left].gcost)
+                if (ar[pos].hcost <= ar[left].hcost)
                     break;
                 swap(pos, left);
                 pos = left;
@@ -529,7 +530,7 @@ function APQ(){
         for (i = 0; i < ar.length; i++) {
             if (ar[i].x == x && ar[i].y == y) {
                 let newNode = new Anode(x,y,p);
-                if (ar[i].isVisited==false && newNode.gcost < ar[i].gcost) {
+                if (ar[i].isVisited==false && newNode.hcost < ar[i].hcost) {
                     ar.splice(i);
                     this.enqueue(newNode, pre);
                 }
@@ -547,7 +548,8 @@ async function ASearch() {
     let start = new Anode(start_row, start_col, null);
     path.push(start);
     nonVisited.enqueue(start, path);
-    while (true) {
+    while (!nonVisited.isEmpty()) {
+        console.log("Entered");
         let curNode = nonVisited.dequeue();
         curNode.isVisited = true;
         let x = curNode.x;
@@ -626,6 +628,7 @@ async function ASearch() {
         }
 
     }
+    console.log("No path exists");
+    return [];
 
 }
-//a comment
