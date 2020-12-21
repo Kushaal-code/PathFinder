@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>PATH VISUALIZER</title>
+        <link rel="stylesheet" href="style.css">
+        <script src="Visualizer.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+    </head>
+    <body onload="createTable()">
+        <div id="options">
+            <button id="snode" onclick="startNode()"><u>Start Node</u></button>
+            <button id="enode" onclick="endNode()"><u>Target Node</u></button>
+            <button id="start" onclick="Start()">START VISUALIZATION</button>
+            <select id="algo">
+                <option value="0" selected>DFS</option>
+                <option value="1">BFS</option>
+                <option value="2">Dijkstra</option>
+                <option value="3">A* Search</option>
+            </select>
+            <button id="reset" onclick="resetAll()"><u>Reset All</u></button>
+        </div>
+    </body>
+</html>
